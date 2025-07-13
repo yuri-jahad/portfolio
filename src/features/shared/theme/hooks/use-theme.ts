@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 type Theme = 'light' | 'dark'
 
 const getInitialTheme = (): Theme => {
-  if (typeof window === 'undefined') return 'light'
+  if (typeof window === 'undefined') return 'dark'
 
   const savedTheme = localStorage.getItem('theme') as Theme | null
   if (savedTheme) return savedTheme

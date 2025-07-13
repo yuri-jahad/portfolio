@@ -23,8 +23,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@theme/*": ["src/theme/*"],
+      "@theme/*": ["src/features/shared/theme/*"],
       "~styled-system/*": ["styled-system/*"]
-    },
+    }
   }
 }

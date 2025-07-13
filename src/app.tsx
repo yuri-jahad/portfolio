@@ -1,5 +1,5 @@
-import ToggleTheme from '@theme/components/theme-toggle'
-import { useTheme } from '@theme/hooks/use-theme'
+import ToggleTheme from '@/features/shared/theme/components/theme-toggle'
+import { useTheme } from '@/features/shared/theme/hooks/use-theme'
 
 function App () {
   const { theme, isDark } = useTheme()
