@@ -2,7 +2,7 @@
 
 Bienvenue sur la nouvelle version de mon portfolio ! J'avais simplement envie d'un design plus frais et d'un code plus actuel, alors j'ai tout reconstruit.
 
-![Aperçu du portfolio](./maquette.png)
+![Aperçu du portfolio](./portfolio-maquette.png)
 
 ### Stack technique
 - **Framework** : React 19
