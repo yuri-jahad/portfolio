@@ -1,20 +1,27 @@
-import ToggleTheme from '@/features/shared/theme/components/theme-toggle'
-import { useTheme } from '@/features/shared/theme/hooks/use-theme'
+import Nav from './features/shared/nav/components/nav'
+import { css } from '~styled-system/css'
 
 function App () {
-  const { theme, isDark } = useTheme()
-  console.log({ isDark })
   return (
     <div className='app'>
-      <header>
-        <h1>Mon App</h1>
-        <ToggleTheme />
-      </header>
-
-      <main>
-        <p>Thème actuel : {theme}</p>
-        <p>Mode sombre : {isDark ? 'Oui' : 'Non'}</p>
-      </main>
+      <div
+        className={css({
+          minHeight: '100vh',
+          bg: 'bg.primary', 
+          color: 'text.primary'
+        })}
+      >
+        <div
+          className={css({
+            maxWidth: '80vw',
+            margin: '0 auto',
+            bg:'black', 
+            minHeight:'100vh'
+          })}
+        >
+          <Nav />
+        </div>
+      </div>
     </div>
   )
 }

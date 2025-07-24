@@ -1,10 +1,8 @@
-import { useState, useEffect } from 'react'
-
-type Theme = 'light' | 'dark'
+import { useEffect } from 'react'
+import type { Theme } from '@/core/store'
+import useStore from '@/core/store'
 
 const getInitialTheme = (): Theme => {
-  if (typeof window === 'undefined') return 'dark'
-
   const savedTheme = localStorage.getItem('theme') as Theme | null
   if (savedTheme) return savedTheme
 
@@ -15,13 +13,24 @@ const getInitialTheme = (): Theme => {
 }
 
 export const useTheme = () => {
-  const [theme, setTheme] = useState<Theme>(getInitialTheme)
+  const { theme, setTheme } = useStore()
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme)
-  }, [])
+    if (theme === null) {
+      const initialTheme = getInitialTheme()
+      setTheme(initialTheme)
+    }
+  }, [theme, setTheme])
+
+  useEffect(() => {
+    if (theme) {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+  }, [theme])
 
   const toggleTheme = () => {
+    if (!theme) return
+
     const newTheme: Theme = theme === 'light' ? 'dark' : 'light'
 
     setTheme(newTheme)
@@ -29,7 +38,7 @@ export const useTheme = () => {
     localStorage.setItem('theme', newTheme)
   }
 
-  const setSpecificTheme = (newTheme: Theme) => {
+  const setSpecificTheme = (newTheme: Exclude<Theme, null>) => {
     setTheme(newTheme)
     document.documentElement.setAttribute('data-theme', newTheme)
     localStorage.setItem('theme', newTheme)

@@ -1,9 +1,15 @@
 import { create } from 'zustand'
 
+export type Theme = 'dark' | 'light' | null
+
 interface TypeStore {
-  theme: 'dark' | 'light' | null
+  theme: Theme
+  setTheme: (theme: Theme) => void
 }
 
 const useStore = create<TypeStore>(set => ({
-  theme: null
+  theme: null,
+  setTheme: theme => set({ theme })
 }))
+
+export default useStore

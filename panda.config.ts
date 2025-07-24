@@ -1,53 +1,112 @@
 import { defineConfig } from '@pandacss/dev'
 
 export default defineConfig({
-  // Whether to use css reset
   preflight: true,
-
-  // Where to look for your css declarations
   include: ['./src/**/*.{js,jsx,ts,tsx}', './pages/**/*.{js,jsx,ts,tsx}'],
-
-  // Files to exclude
   exclude: [],
 
-  // Useful for theme customization
   conditions: {
     extend: {
       light: '[data-theme=light] &',
-      dark: '[data-theme=dark] &'
+      dark: '[data-theme=dark] &, :root:not([data-theme=light]) &' // Dark par défaut + explicite
     }
   },
 
   theme: {
     tokens: {
+      fontSizes: {
+        xs: { value: '12.8px' },
+        md: { value: '16px' },
+        lg: { value: '25px' },
+        xl: { value: '50px' }
+      },
       colors: {
-        primary: {
-          50: { value: '#f0f9ff' },
-          500: { value: '#3b82f6' },
-          900: { value: '#1e3a8a' }
+        white: {
+          base: { value: '#FFFFFF' },
+          projects: { value: '#000000' },
+          infos: { value: '#D9D6D6' }
         },
-        white: { value: '#ffffff' },
-        gray: {
-          900: { value: '#1A1A1A' }
+        dark: {
+          base: { value: '#0d1117' },
+          brown: { value: '#1A1A1A' },
+          projects: { value: '#F6D83E' },
+          infos: { value: '#D9D6D6' }
         }
-      }
+      }, 
     },
 
-    // Utiliser semanticTokens pour les couleurs conditionnelles
     semanticTokens: {
       colors: {
         bg: {
           primary: {
             value: {
-              base: '{colors.white}',
-              _dark: '{colors.gray.900}'
+              _light: '{colors.white.base}',
+              _dark: '{colors.dark.base}'
+            }
+          }
+        },
+
+        text: {
+          primary: {
+            value: {
+              _light: '{colors.white.projects}', // #000000 en light
+              _dark: '{colors.white.base}' // #FFFFFF en dark (ET par défaut)
+            }
+          }
+        },
+
+        // Pour votre filterButton (DARK par défaut)
+        filterButton: {
+          bg: {
+            value: {
+              _light: '{colors.white.projects}', // #000000 en light
+              _dark: '{colors.white.base}' // #FFFFFF en dark (ET par défaut)
+            }
+          },
+          text: {
+            value: {
+              _light: '{colors.white.base}', // #FFFFFF en light
+              _dark: '{colors.white.projects}' // #000000 en dark (ET par défaut)
             }
           }
         }
       }
     },
 
-    extend: {}
+    extend: {
+      recipes: {
+        filterButton: {
+          className: 'filter-button',
+          base: {
+            bg: 'filterButton.bg',
+            color: 'filterButton.text',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '8px 16px',
+            borderRadius: '20px',
+            border: 'none',
+            cursor: 'pointer',
+            fontWeight: '500',
+            fontSize: 'xs',
+            width: '92px',
+
+            _hover: {
+              opacity: '0.9',
+            },
+
+            _active: {
+              transform: 'translateY(0)'
+            },
+
+            _disabled: {
+              opacity: '0.5',
+              cursor: 'not-allowed'
+            }
+          }
+        }
+      }
+    }
   },
 
   outdir: 'styled-system'
