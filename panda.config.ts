@@ -32,7 +32,7 @@ export default defineConfig({
           projects: { value: '#F6D83E' },
           infos: { value: '#D9D6D6' }
         }
-      }, 
+      }
     },
 
     semanticTokens: {
@@ -89,10 +89,10 @@ export default defineConfig({
             cursor: 'pointer',
             fontWeight: '500',
             fontSize: 'xs',
-            width: '92px',
+            width: 'fit-content',
 
             _hover: {
-              opacity: '0.9',
+              opacity: '0.9'
             },
 
             _active: {
