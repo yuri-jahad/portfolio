@@ -23,8 +23,8 @@ export const ContainerBtnsCSS = css({
     paddingTop: '30px 0 30px 0'
   },
   '@media(max-width:480px)': {
-    flexDirection: 'column',
-    alignItems: 'center',
+    display:'grid',
+    gridTemplateColumns:'1fr 1fr',
     gap: '12px',
     padding: '20px 0 20px 0'
   }

@@ -432,10 +432,8 @@ export default function Projects (): JSX.Element {
             fontSize: '12px'
           }),
           ...(window.innerWidth <= 480 && {
-            flexDirection: 'column',
-            gap: '8px',
-            marginBottom:'40px',
-            bg:'red',
+            marginBottom: '40px',
+            bg: 'red',
             fontSize: '11px'
           })
         }}

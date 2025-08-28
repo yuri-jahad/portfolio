@@ -43,6 +43,9 @@ export const LineHorizontalCSS = css({
     width: '100%',
     height: '1px',
     background: 'bg.classic'
+  }, 
+   '@media(max-width:750px)': {
+    width:'90vw', 
   }
 })
 export const TechnoContentCSS = css({
@@ -58,10 +61,12 @@ export const TechnosContentCSS = css({
   display: 'flex',
   justifyContent: 'space-between',
   minHeight: '700px',
-  width: '50vw',
   marginLeft: '100px',
-
-  flexDirection: 'column'
+  flexDirection: 'column', 
+  '@media(max-width:750px)': {
+    marginLeft:0,
+    width:'100%', 
+  }
 })
 
 export const TechnoTitleCSS = css({

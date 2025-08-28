@@ -68,13 +68,18 @@ export const ZoneCategoryCSS = css({
   display: 'flex',
   justifyContent: 'space-between',
   paddingBottom: '40px',
-  // Ajustements mobile uniquement
   '@media(max-width: 768px)': {
-    flexDirection: 'column',
     alignItems: 'center',
+    justifyContent:'space-between',
+    flexWrap:'wrap',
     gap: '20px',
-    paddingBottom: '20px'
-  }
+    paddingBottom: '20px',
+    '& svg': {
+      height:'16px',
+      textAlign:'start',
+      width:'fit-content'
+    }
+  }, 
 })
 
 export const CssOrganize = (...styles: SystemStyleObject[]) =>

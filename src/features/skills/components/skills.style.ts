@@ -4,5 +4,12 @@ export const StackContainerCSS = css({
   marginTop: '70px',
   gap: '100px',
   display: 'flex',
-  flexDirection: 'column'
+  flexDirection: 'column',
+  '& svg': {
+    '@media(max-width:750px)': {
+      height: '16px',
+      textAlign: 'start',
+      width: 'fit-content'
+    }
+  }
 })

@@ -112,24 +112,38 @@ export const BurgerButtonCSS = css({
   }
 })
 
-// Lignes du burger avec le style de votre thème
+// Lignes du burger avec animation vers croix (X)
 export const BurgerLineCSS = css({
   width: '100%',
   height: '2px',
   backgroundColor: 'text.primary',
   borderRadius: '1px',
   transition: 'all 0.3s ease',
-  transformOrigin: '1px'
+  transformOrigin: 'center',
+  
+  // État ouvert - première ligne
+  '.mobile-open &:nth-child(1)': {
+    transform: 'rotate(45deg) translateY(6px)'
+  },
+  
+  // État ouvert - deuxième ligne (disparaît)
+  '.mobile-open &:nth-child(2)': {
+    opacity: 0,
+    transform: 'scaleX(0)'
+  },
+  
+  // État ouvert - troisième ligne
+  '.mobile-open &:nth-child(3)': {
+    transform: 'rotate(-45deg) translateY(-6px)'
+  }
 })
 
-// Navigation mobile CORRIGÉE
+// Navigation mobile
 export const MobileNavCSS = css({
-  // CORRECTION 1: Enlever le display: 'none' du niveau racine
   position: 'fixed',
   top: 'height.menu',
   left: 0,
   width: '100vw',
-  // CORRECTION 2: Utiliser 100dvh pour une hauteur plus précise sur mobile
   height: '100dvh',
   backgroundColor: 'text.primary',
   backdropFilter: 'blur(100px)',
@@ -137,14 +151,12 @@ export const MobileNavCSS = css({
   transform: 'translateX(-100%)',
   transition: 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
   zIndex: '99',
-  // CORRECTION 3: Centrer le contenu verticalement
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
   padding: '40px',
   fontFamily: 'athena',
-  // Cacher par défaut uniquement sur desktop
   '@media (min-width: 769px)': {
     display: 'none'
   },
@@ -163,7 +175,7 @@ export const MobileNavCSS = css({
     gap: '40px'
   },
 
-  // CORRECTION 4: Liens dans le menu mobile avec surlignement centré
+  // Liens dans le menu mobile
   '& a': {
     position: 'relative',
     textDecoration: 'none',
@@ -179,7 +191,7 @@ export const MobileNavCSS = css({
     '&::after': {
       content: '""',
       position: 'absolute',
-      bottom: '5px', // CORRECTION: Ajuster la position
+      bottom: '5px',
       height: '3px',
       background: 'bg.gardianBackground',
       transition: 'width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
@@ -221,7 +233,6 @@ export const OverlayCSS = css({
   opacity: 0,
   pointerEvents: 'none',
   transition: 'opacity 0.3s ease',
-  // Cacher par défaut uniquement sur desktop
   '@media (min-width: 769px)': {
     display: 'none'
   },
