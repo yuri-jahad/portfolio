@@ -20,15 +20,13 @@ export const NavCss = css({
   justifyContent: 'space-between',
   alignItems: 'center',
   maxWidth: '1440px',
-  padding: '0 20px',
 
   '@media (max-width: 768px)': {
     padding: '0 15px',
-    bg:'bg.contactHover'
+    bg: 'bg.contactHover'
   }
 })
 
-// Menu desktop - se cache sur mobile
 export const UlCSS = css({
   display: 'flex',
   gap: '65px',
@@ -120,18 +118,18 @@ export const BurgerLineCSS = css({
   borderRadius: '1px',
   transition: 'all 0.3s ease',
   transformOrigin: 'center',
-  
+
   // État ouvert - première ligne
   '.mobile-open &:nth-child(1)': {
     transform: 'rotate(45deg) translateY(6px)'
   },
-  
+
   // État ouvert - deuxième ligne (disparaît)
   '.mobile-open &:nth-child(2)': {
     opacity: 0,
     transform: 'scaleX(0)'
   },
-  
+
   // État ouvert - troisième ligne
   '.mobile-open &:nth-child(3)': {
     transform: 'rotate(-45deg) translateY(-6px)'
@@ -187,7 +185,7 @@ export const MobileNavCSS = css({
     transition: 'color 0.3s ease',
     textAlign: 'center',
     width: '200px',
-    
+
     '&::after': {
       content: '""',
       position: 'absolute',

@@ -1,6 +1,5 @@
 import { css } from '~styled-system/css'
 
-// Container pour les boutons de filtre - INCHANGÉ
 export const ContainerBtnsCSS = css({
   display: 'flex',
   gap: '20px 10px',
@@ -23,14 +22,13 @@ export const ContainerBtnsCSS = css({
     paddingTop: '30px 0 30px 0'
   },
   '@media(max-width:480px)': {
-    display:'grid',
-    gridTemplateColumns:'1fr 1fr',
+    display: 'grid',
+    gridTemplateColumns: '1fr auto',
     gap: '12px',
     padding: '20px 0 20px 0'
   }
 })
 
-// Container pour un projet individuel - CORRIGÉ avec hauteurs
 export const ContainerProjectCSS = css({
   display: 'flex',
   flexDirection: 'column',
@@ -38,21 +36,20 @@ export const ContainerProjectCSS = css({
   gap: '20px',
 
   '& .magnetic-project-container': {
-    height: '500px', // Hauteur fixe pour desktop
+    height: '500px !important',
 
     '@media(max-width:1024px)': {
-      height: '400px'
+      height: '400px !important'
     },
     '@media(max-width:768px)': {
-      height: '300px'
+      height: '300px !important'
     },
     '@media(max-width:480px)': {
-      height: '250px'
+      height: '250px !important'
     }
   }
 })
 
-// Container pour la grille de projets - CORRIGÉ
 export const ContainerProjectsCSS = css({
   alignItems: 'start',
   display: 'grid',
@@ -64,7 +61,6 @@ export const ContainerProjectsCSS = css({
   }
 })
 
-// Boutons des technos dans chaque projet - INCHANGÉ
 export const ContainerProjectBtnsCSS = css({
   display: 'flex',
   gap: '10px',
@@ -72,35 +68,16 @@ export const ContainerProjectBtnsCSS = css({
   fontFamily: 'geistMedium'
 })
 
-// Images des projets - CORRIGÉ avec hauteurs fixes
 export const ImgProjectCSS = css({
   objectFit: 'cover',
   height: '500px !important',
   width: '100%',
 
   '@media(max-width:1250px)': {
-    height: '400px !important'
+    height: '350px !important'
   },
-  '@media(max-width:1024px)': {
-    height: '300px !important'
-  },
-  '@media(max-width:765px)': {
-    height: '400px !important',
-    objectFit: 'content'
-  }
-})
-
-export const ImgProjectOriginCSS = css({
-  objectFit: 'cover',
-  objectPosition: 'right',
-  height: '500px !important',
-  width: '100%',
-
-  '@media(max-width:1250px)': {
-    height: '400px !important'
-  },
-  '@media(max-width:1024px)': {
-    height: '300px !important'
+  '@media(max-width:1050px)': {
+    height: '200px !important'
   },
   '@media(max-width:765px)': {
     height: '400px !important',
@@ -108,7 +85,6 @@ export const ImgProjectOriginCSS = css({
   }
 })
 
-// Nom du projet - AJOUTÉ responsive
 export const ProjectNameCSS = css({
   fontSize: '{fontSizes.lg}',
   '@media(max-width:768px)': {
@@ -117,15 +93,33 @@ export const ProjectNameCSS = css({
   }
 })
 
-// Styles pour la section principale - INCHANGÉ
+export const ProjectOriginCSS = css({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  color: 'bg.gardienSingleColor',
+  gap: '10px',
+  '& a': {
+    position: 'relative'
+  },
+  '& a::after': {
+    content: '""',
+    position: 'absolute',
+    height: '1px',
+    width: '100%',
+    left: 0,
+    bottom: 0,
+    background: 'bg.gardianBackground'
+  }
+})
+
 export const ProjectsCSS = css({
   display: 'flex',
   fontSize: '{fontSizes.xs}',
   flexDirection: 'column'
 })
 
-// Style pour les projets non trouvés - INCHANGÉ
-export const ProjectNotFoundCSS = css({
+export const BtnProjectNotFoundCSS = css({
   bg: '#E4004B',
   color: 'bg.classicReverse',
   _hover: {
@@ -133,22 +127,18 @@ export const ProjectNotFoundCSS = css({
   }
 })
 
-// NOUVEAUX STYLES pour la section "No projects found"
-
-// Container pour les projets non trouvés
 export const ContainerProjectNotFoundCSS = css({
   width: '100%',
   display: 'grid',
   gridColumn: '1 / -1'
 })
 
-// Container pour les miniatures
 export const ThumbnailContainerCSS = css({
   display: 'grid',
   gridTemplateColumns: 'repeat(4, 1fr)',
   gap: '20px',
 
-  '@media(max-width:1024px)': {
+  '@media(max-width:1250px)': {
     gridTemplateColumns: 'repeat(3, 1fr)'
   },
   '@media(max-width:768px)': {
@@ -161,7 +151,21 @@ export const ThumbnailContainerCSS = css({
   }
 })
 
-// Items des miniatures - CORRIGÉ avec hauteur définie
+export const ImgProjectOriginCSS = css({
+  objectFit: 'cover',
+  objectPosition: 'right',
+  width: '100%',
+  borderRadius: '12px',
+  transition: 'all 0.3s ease',
+  height: '200px !important'
+})
+
+export const ProjectLegendCSS = css({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center'
+})
+
 export const ThumbnailItemCSS = css({
   cursor: 'pointer',
   display: 'flex',
@@ -178,7 +182,6 @@ export const ThumbnailItemCSS = css({
     backgroundColor: 'rgba(53, 172, 223, 0.1)'
   },
 
-  // AJOUT: Définir la hauteur du container des miniatures
   '& .magnetic-project-container': {
     height: '200px',
 
@@ -191,11 +194,10 @@ export const ThumbnailItemCSS = css({
   }
 })
 
-// Images des miniatures - CORRIGÉ avec hauteur fixe
 export const ThumbnailImageCSS = css({
   width: '100%',
   objectFit: 'cover',
-  height: '200px',
+  height: '200px !important',
   borderRadius: '8px',
   marginBottom: '12px',
   position: 'center',
@@ -210,7 +212,6 @@ export const ThumbnailImageCSS = css({
   }
 })
 
-// Nom des miniatures
 export const ThumbnailNameCSS = css({
   fontSize: '15px',
   textAlign: 'center',
@@ -225,7 +226,6 @@ export const ThumbnailNameCSS = css({
   }
 })
 
-// Message "No projects found"
 export const NoProjectsMessageCSS = css({
   textAlign: 'center',
   fontSize: '22px',

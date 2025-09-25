@@ -19,11 +19,7 @@ export default function Skills () {
   const containerRef = useRef()
   const fluxRef = useRef()
   const themeColors = useThemeAttributes()
-  
-  // Debug pour vérifier les valeurs
-  console.log('themeColors:', themeColors)
-  console.log('base color:', themeColors.base)
-  
+
   useGSAP(
     context => {
       const TOTAL_DURATION = 0.6
@@ -33,10 +29,10 @@ export default function Skills () {
       let currentTween = null
 
       const allPaths = [...(myPaths || []), ...(stackPaths || [])]
-      
+
       // Assurer que la couleur de base est bien définie
       const baseColor = themeColors.base || '#000000'
-      
+
       allPaths.forEach(path => {
         const pathLength = path.getTotalLength()
         gsap.set(path, {
@@ -172,7 +168,7 @@ export default function Skills () {
         </div>
       </div>
       <div className={StackContainerCSS}>
-        <div >
+        <div>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             height='25'
@@ -186,9 +182,18 @@ export default function Skills () {
                 x2='0%'
                 y2='100%'
               >
-                <stop offset='0%' stopColor={themeColors.colors?.[0] || '#fe5251'} />
-                <stop offset='50%' stopColor={themeColors.colors?.[1] || '#FA723B'} />
-                <stop offset='100%' stopColor={themeColors.colors?.[2] || '#F53C28'} />
+                <stop
+                  offset='0%'
+                  stopColor={themeColors.colors?.[0] || '#fe5251'}
+                />
+                <stop
+                  offset='50%'
+                  stopColor={themeColors.colors?.[1] || '#FA723B'}
+                />
+                <stop
+                  offset='100%'
+                  stopColor={themeColors.colors?.[2] || '#F53C28'}
+                />
               </linearGradient>
             </defs>
 
@@ -200,7 +205,7 @@ export default function Skills () {
                   transform='translate(0 -4.8)'
                   stroke={themeColors.base || '#000000'}
                   strokeWidth='1'
-                  fill="transparent"
+                  fill='transparent'
                 />
                 <path
                   id='Tracé_6865'
@@ -218,7 +223,7 @@ export default function Skills () {
                   transform='translate(-1380.789)'
                   stroke={themeColors.base || '#000000'}
                   strokeWidth='1'
-                  fill="transparent"
+                  fill='transparent'
                 />
                 <path
                   id='Tracé_6867'
@@ -226,7 +231,7 @@ export default function Skills () {
                   transform='translate(-1755.186 -4.191)'
                   stroke={themeColors.base || '#000000'}
                   strokeWidth='1'
-                  fill="transparent"
+                  fill='transparent'
                 />
                 <path
                   id='Tracé_6868'
@@ -234,7 +239,7 @@ export default function Skills () {
                   transform='translate(-2112.124)'
                   stroke={themeColors.base || '#000000'}
                   strokeWidth='1'
-                  fill="transparent"
+                  fill='transparent'
                 />
                 <path
                   id='Tracé_6869'
@@ -242,7 +247,7 @@ export default function Skills () {
                   transform='translate(-2569.644)'
                   stroke={themeColors.base || '#000000'}
                   strokeWidth='1'
-                  fill="transparent"
+                  fill='transparent'
                 />
                 <path
                   id='Tracé_6870'
@@ -250,7 +255,7 @@ export default function Skills () {
                   transform='translate(-3070.464 -4.192)'
                   stroke={themeColors.base || '#000000'}
                   strokeWidth='1'
-                  fill="transparent"
+                  fill='transparent'
                 />
               </g>
             </g>

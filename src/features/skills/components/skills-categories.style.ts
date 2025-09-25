@@ -8,15 +8,20 @@ export const DesignIconCSS = css({
   justifyContent: 'center',
   alignItems: 'center',
   borderRadius: '10px',
+  '& svg': {
+    width: '80% !important',
+    height: '80% !important'
+  },
   '@media(max-width:1024px)': {
     width: '40px',
-   height: '40px',
-  },
+    height: '40px'
+  }
 })
 
 export const LineHorizontalCSS = css({
   display: 'flex',
-  flexWrap:'wrap',
+  flexWrap: 'wrap',
+  alignItems: 'center',
   gap: '30px',
   blur: '200',
   height: '100%',
@@ -43,9 +48,9 @@ export const LineHorizontalCSS = css({
     width: '100%',
     height: '1px',
     background: 'bg.classic'
-  }, 
-   '@media(max-width:750px)': {
-    width:'90vw', 
+  },
+  '@media(max-width:750px)': {
+    width: '90vw'
   }
 })
 export const TechnoContentCSS = css({
@@ -62,10 +67,10 @@ export const TechnosContentCSS = css({
   justifyContent: 'space-between',
   minHeight: '700px',
   marginLeft: '100px',
-  flexDirection: 'column', 
+  flexDirection: 'column',
   '@media(max-width:750px)': {
-    marginLeft:0,
-    width:'100%', 
+    marginLeft: 0,
+    width: '100%'
   }
 })
 
@@ -86,7 +91,15 @@ export const TechnoNameCSS = css({
   pointerEvents: 'none',
   zIndex: 10,
   textAlign: 'center',
-  whiteSpace: 'nowrap'
+  whiteSpace: 'nowrap',
+  '@media(max-width:1250px)': {
+    fontSize: '25px',
+    top: -40,
+    left: '50%',
+    transform: 'translateX(-50%)'
+  },
+  '@media(max-width:768px)': {},
+  '@media(max-width:480px)': {}
 })
 
 export const TechnoSelectedCSS = css({

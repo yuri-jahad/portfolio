@@ -3,7 +3,7 @@ import { gsap } from 'gsap'
 
 const MagneticProject = ({
   imageUrl,
-  found,
+  height,
   gridSize = 9,
   radius = 60,
   className = '',
@@ -27,18 +27,16 @@ const MagneticProject = ({
     if (!canvas || !container) return
 
     const context = canvas.getContext('2d')
- 
-    // Prend les dimensions du conteneur parent (définies par tes CSS)
+
     const updateCanvasSize = () => {
       const rect = container.getBoundingClientRect()
-      canvas.width = rect.width 
-      // CORRECTION: Garder la hauteur basée sur la largeur pour maintenir l'aspect ratio
-      canvas.height = rect.height || rect.width // Utilise la hauteur du container ou la largeur par défaut
+      canvas.width = rect.width
+      canvas.height = rect.height || rect.width 
     }
 
     updateCanvasSize()
-    
-    // Classe pour les éléments de grille
+  
+
     class GridElement {
       constructor () {
         this.x = 0
@@ -56,14 +54,12 @@ const MagneticProject = ({
     img.onload = () => {
       imageRef.current = img
 
-      // Créer la grille
       const signs = []
 
       for (let i = 0; i < gridSize; i++) {
         signs[i] = []
         for (let j = 0; j < gridSize; j++) {
           const sign = new GridElement()
-          // Positionnement sans espaces - divise parfaitement l'espace
           sign.left =
             (canvas.width / gridSize) * i + canvas.width / gridSize / 2
           sign.top =
@@ -115,14 +111,14 @@ const MagneticProject = ({
 
               context.drawImage(
                 imageRef.current,
-                i * (imageRef.current.width / gridSize), // sx
-                j * (imageRef.current.height / gridSize), // sy
-                imageRef.current.width / gridSize, // sWidth
-                imageRef.current.height / gridSize, // sHeight
-                finalX, // dx - position avec effet magnétique
-                finalY, // dy
-                scaledWidth, // dWidth - taille constante
-                scaledHeight // dHeight
+                i * (imageRef.current.width / gridSize), 
+                j * (imageRef.current.height / gridSize), 
+                imageRef.current.width / gridSize, 
+                imageRef.current.height / gridSize, 
+                finalX, 
+                finalY, 
+                scaledWidth, 
+                scaledHeight 
               )
             }
           }

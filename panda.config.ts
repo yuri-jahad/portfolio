@@ -81,10 +81,8 @@ export default defineConfig({
       fonts: {
         sans: { value: ['Geist', 'system-ui', 'sans-serif'] },
         athena: { value: ['Athena'] },
-        nephilm: { value: ['Nephilm'] },
         geistMedium: { value: ['GeistMedium'] },
         geistLight: { value: ['GeistLight'] },
-        ivy: { value: ['Ivymode'] }
       },
       fontWeights: {
         medium: { value: '500' }
@@ -117,7 +115,7 @@ export default defineConfig({
         light: {
           base: {
             value:
-              'radial-gradient(circle,rgba(255, 255, 255) 0%, rgba(255, 250, 250) 100%, rgba(240,240, 240) 71%);'
+              'radial-gradient(circle,rgba(255, 255, 255) 0%, rgba(255, 250, 250) 100%, rgba(240,240, 240) 71%)'
           },
           border: { value: 'rgb(000, 000, 000, 0.2)' },
           projects: { value: '#000000' },

@@ -4,7 +4,6 @@ import { filterButton, filterButtonSelected } from '~styled-system/recipes'
 
 import {
   SectionCSS,
-  SizesCSS,
   SpacingCSS,
   ZoneCategoryCSS
 } from '@/features/shared/components/global.style'
@@ -13,11 +12,14 @@ import {
   ContainerProjectCSS,
   ContainerProjectsCSS,
   ContainerProjectBtnsCSS,
+  ProjectLegendCSS,
   ImgProjectCSS,
   ProjectsCSS,
+  ProjectOriginCSS,
   ProjectNameCSS,
   ImgProjectOriginCSS,
-  ProjectNotFoundCSS
+  BtnProjectNotFoundCSS,
+  ThumbnailContainerCSS
 } from '@/features/projects/projects.style'
 import { css } from '~styled-system/css'
 
@@ -28,11 +30,6 @@ import { gsap } from '@/core/gsap.config'
 import { useNavDetection } from '../shared/nav/hooks/use-nav-detection'
 import { useRef } from 'react'
 import { useThemeAttributes } from '../shared/components/hooks/use-theme'
-
-const ThumbnailContainerCSS = css({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(4, 1fr)'
-})
 
 const ThumbnailItemCSS = css({
   cursor: 'pointer',
@@ -60,7 +57,7 @@ const ContainerProjectNotFoundCSS = css({
 const ThumbnailImageCSS = css({
   width: '100%',
   objectFit: 'cover',
-  height: '400px',
+  height: '200px !important',
   borderRadius: '8px',
   marginBottom: '12px',
   position: 'center',
@@ -400,7 +397,7 @@ export default function Projects (): JSX.Element {
           <div
             className={`${filterButton()} ${
               techsSelected.includes(techno) && projectsFilteredIsEmpty
-                ? ProjectNotFoundCSS
+                ? BtnProjectNotFoundCSS
                 : techsSelected.includes(techno)
                 ? filterButtonSelected()
                 : ''
@@ -494,7 +491,7 @@ export default function Projects (): JSX.Element {
             <div key={index} className={ContainerProjectCSS}>
               <MagneticProject
                 found={true}
-                imageUrl={project.url}
+                imageUrl={project.url.icon}
                 gridSize={8}
                 className={
                   project.name === 'Emma Bot (discord)'
@@ -502,7 +499,16 @@ export default function Projects (): JSX.Element {
                     : ImgProjectCSS
                 }
               />
-              <div className={ProjectNameCSS}>{project.name}</div>
+              <div className={ProjectLegendCSS}>
+                <div className={ProjectNameCSS}>{project.name}</div>
+                <div className={ProjectOriginCSS}>
+                  {project.url.server && <a target='_blank' href={project.url.server}> Project View</a>}
+                  <a target='_blank' href={project.url.github}>
+                   Github 
+                  </a>
+                </div>
+              </div>
+
               <div className={ContainerProjectBtnsCSS}>
                 {project.technos.map((techno, technoIndex) => (
                   <button

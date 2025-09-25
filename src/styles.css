@@ -1,29 +1,29 @@
 @font-face {
-  font-family: 'Geist';
-  src: url('./src/assets/fonts/Geist-Medium.ttf') format('truetype');
+  font-family: 'GeistLight';
+  src: url('./assets/fonts/Geist-Light.woff2') format('woff2');
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: 'GeistLight';
-  src: url('./src/assets/fonts/Geist-Light.ttf') format('truetype');
+  font-family: 'Geist';
+  src: url('./assets/fonts/Geist-Medium.woff2') format('woff2');
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'GeistMedium';
-  src: url('./src/assets/fonts/Geist-Medium.ttf') format('truetype');
+  src: url('./assets/fonts/Geist-Medium.woff2') format('woff2');
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: 'Nephilm';
-  src: url('./src/assets/fonts/Nephilm.otf') format('truetype');
-}
-@font-face {
   font-family: 'Athena';
-  src: url('./src/assets/fonts/Athena.ttf') format('truetype');
-}
-@font-face {
-  font-family: 'Ivy';
-  src: url('/src/assets/fonts/IvyMode-Regular.woff2');
+  src: url('./assets/fonts/Athena.woff2') format('woff2');
+  font-style: normal;
+  font-display: swap;
 }
 
 html {
@@ -34,43 +34,9 @@ html {
   fill: red;
 }
 
-/* Ajout de l'opacité 0 pour le bouton animé */
 .btn-animated {
   opacity: 0;
 }
-
-/* .button-container-2 {
-  opacity: 0;
-  position: relative;
-  overflow: hidden;
-  font-family: 'athena', sans-serif;
-  font-weight: 300;
-  transition: 0.5s;
-  letter-spacing: 1px;
-  border-radius: 16px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
-
-.button-container-2 button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  -webkit-mask-position: 0 0;
-  mask-position: 0 0;
-  width: 100%;
-  height: 100%;
-  padding: fit-content;
-  font-family: 'athena', sans-serif;
-  -webkit-mask: url('img/urban-sprite.png');
-  mask: url('img/urban-sprite.png');
-  -webkit-mask-size: 3000% 100%;
-  mask-size: 3000% 100%;
-  border: none;
-  cursor: pointer;
-} */
 
 .button-container-2.dark button:hover {
   -webkit-animation: aniDark 0.7s steps(29) forwards;
@@ -91,18 +57,6 @@ html {
   -webkit-animation: ani2Light 0.7s steps(29) forwards;
   animation: ani2Light 0.7s steps(29) forwards;
 }
-
-/* .mask {
-  position: absolute;
-  text-align: center;
-  padding: fit-content;
-  width: 101%;
-  font-family: 'athena', sans-serif;
-  position: absolute;
-  transform: translateY(50%);
-  overflow: hidden;
-  font-weight: bold;
-} */
 
 @-webkit-keyframes aniDark {
   from {
@@ -145,7 +99,7 @@ html {
     mask-position: 0 0;
   }
   to {
-    background: linear-gradient(180deg, #fe5251, #eae547,  #F53C28);
+    background: linear-gradient(180deg, #fe5251, #eae547, #f53c28);
     -webkit-mask-position: 100% 0;
     mask-position: 100% 0;
   }
@@ -153,7 +107,7 @@ html {
 
 @keyframes ani2Light {
   from {
-    background: linear-gradient(90deg, #fe5251, #eae547,  #F53C28);
+    background: linear-gradient(90deg, #fe5251, #eae547, #f53c28);
     -webkit-mask-position: 100% 0;
     mask-position: 100% 0;
   }

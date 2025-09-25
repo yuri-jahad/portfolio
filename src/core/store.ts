@@ -20,7 +20,8 @@ interface TypeStore {
   clearFilters: () => void
   filterMode: FilterMode
   filterByProjectName: (projectName: string) => void
-
+  isMobileMenuOpen: boolean
+  setIsMobileMenuOpen: (isMobileMenuOpen: boolean) => void
   setFilterMode: (mode: FilterMode) => void
 }
 
@@ -28,6 +29,8 @@ const useStore = create<TypeStore>((set, get) => ({
   theme: null,
   setTheme: theme => set({ theme }),
   projectsFiltered: [...projects],
+  isMobileMenuOpen: false,
+  setIsMobileMenuOpen: isMobileMenuOpen => set({ isMobileMenuOpen }),
   setProjectsFiltered: projectsFiltered => set({ projectsFiltered }),
   techsSelected: [], // Commence vide, pas avec toutes les technos
   filterMode: 'OR', // Mode par défaut
@@ -118,7 +121,7 @@ const useStore = create<TypeStore>((set, get) => ({
       set({
         projectsFiltered: [project],
         techsSelected: project.technos as Technos[],
-        filterMode: 'AND' 
+        filterMode: 'AND'
       })
     }
   }

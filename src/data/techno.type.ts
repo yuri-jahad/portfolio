@@ -10,10 +10,16 @@ export interface StackType {
 
 export type StackArray = StackType[]
 
+export interface ProjectURL {
+  icon: ComponentType
+  github: string
+  server: string | null
+}
+
 export interface ProjectsType {
   name: string
   technos: string[]
-  url: string
+  url: ProjectURL
 }
 
 export type ProjectsArray = ProjectsType[]

@@ -11,26 +11,23 @@ import {
 } from '@/features/shared/nav/components/nav.style'
 import ToggleTheme from '@/features/shared/theme/components/theme-toggle'
 import { useGSAP } from '@gsap/react'
-import { gsap } from 'gsap'
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
-import { useState } from 'react'
+import { gsap } from '@/core/gsap.config'
 import DetectLinkNameByHref, {
   type LinksProps
 } from '@/features/shared/components/detect-link-name'
-
-// Enregistrer le plugin ScrollTo
-gsap.registerPlugin(ScrollToPlugin)
+import useStore from '@/core/store'
+import { useSmoothScroll } from '../../components/hooks/use-smooth-scroll'
 
 const menuItems = [
   { href: '#projects', label: 'PROJECTS' },
   { href: '#skills', label: 'SKILLS' },
-  { href: '#resume', label: 'RÉSUMÉ' },
-  { href: '#contact', label: 'CONTACT' }
+  { href: '#contact', label: 'CONTACT' },
+  // { href: '#resume', label: 'RÉSUMÉ' }
 ]
 
 export default function Nav () {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-
+  const { isMobileMenuOpen, setIsMobileMenuOpen } = useStore()
+  const { onSmoothScroll, closeMobileMenu } = useSmoothScroll(gsap)
   useGSAP(() => {
     gsap
       .timeline({})
@@ -50,27 +47,6 @@ export default function Nav () {
     setIsMobileMenuOpen(!isMobileMenuOpen)
   }
 
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false)
-  }
-    
-  // Fonction de smooth scroll avec GSAP
-  const onSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string): void => {
-    e.preventDefault()
-    
-    const targetElement = document.querySelector(targetId)
-    if (targetElement) {
-      gsap.to(window, {
-        duration: 0.8,
-        scrollTo: { y: targetElement, offsetY: 80 },
-        ease: 'power2.inOut'
-      })
-    }
-    
-    // Fermer le menu mobile après le clic
-    closeMobileMenu()
-  }
-
   return (
     <>
       {/* Overlay */}
@@ -81,10 +57,10 @@ export default function Nav () {
       <header className={`${HeaderCSS} header`}>
         <nav className={NavCss}>
           {/* Logo */}
-          <a 
-            className={`${NavLinkCSS}`} 
+          <a
+            className={`${NavLinkCSS}`}
             href='#home'
-            onClick={(e) => onSmoothScroll(e, '#home')}
+            onClick={e => onSmoothScroll(e, '#home')}
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -104,10 +80,10 @@ export default function Nav () {
           <ul className={UlCSS}>
             {menuItems.map(item => (
               <li key={item.href}>
-                <a 
-                  href={item.href} 
+                <a
+                  href={item.href}
                   className={NavLinkCSS}
-                  onClick={(e) => onSmoothScroll(e, item.href)}
+                  onClick={e => onSmoothScroll(e, item.href)}
                 >
                   {item.label}
                 </a>
@@ -153,14 +129,16 @@ export default function Nav () {
       </header>
 
       {/* Navigation Mobile */}
-      <nav className={`${MobileNavCSS} ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
+      <nav
+        className={`${MobileNavCSS} ${isMobileMenuOpen ? 'mobile-open' : ''}`}
+      >
         <ul>
           {menuItems.map(item => (
             <li key={item.href}>
               <a
                 href={item.href}
                 className={NavLinkCSS}
-                onClick={(e) => onSmoothScroll(e, item.href)}
+                onClick={e => onSmoothScroll(e, item.href)}
               >
                 {item.label}
               </a>

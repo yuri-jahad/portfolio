@@ -3,9 +3,6 @@ import { css } from '~styled-system/css'
 export const HomeCSS = css({
   flexDirection: 'column',
   alignItems: 'center',
-  '@media(max-width:750px)': {
-  minHeight:'80vh'
-  }
 })
 
 export const H1CSS = css({

@@ -22,12 +22,6 @@ export const SceneCSS = css({
     width: '100%',
     margin: '0 auto'
   },
-  // Ajout des règles mobile uniquement
-  '@media(max-width: 768px)': {
-    minWidth: 'auto',
-    width: '100%',
-    padding: '20px'
-  }
 })
 
 export const flexCSS = {
@@ -54,12 +48,11 @@ export const SectionCSS = css({
   maxWidth: '100vw',
   gridTemplateRows: 'auto 1fr auto',
   flexDirection: 'column',
-  // Ajustements mobile uniquement
   '@media(max-width:1440px)': {
     minHeight: 'calc(94vh - 6vh)'
   },
   '@media(max-width: 768px)': {
-    minHeight: 'auto',
+    minHeight: '80vh',
     padding: '20px 0'
   }
 })
@@ -70,16 +63,16 @@ export const ZoneCategoryCSS = css({
   paddingBottom: '40px',
   '@media(max-width: 768px)': {
     alignItems: 'center',
-    justifyContent:'space-between',
-    flexWrap:'wrap',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
     gap: '20px',
     paddingBottom: '20px',
     '& svg': {
-      height:'16px',
-      textAlign:'start',
-      width:'fit-content'
+      height: '16px',
+      textAlign: 'start',
+      width: 'fit-content'
     }
-  }, 
+  }
 })
 
 export const CssOrganize = (...styles: SystemStyleObject[]) =>

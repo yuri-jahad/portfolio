@@ -1,8 +1,8 @@
 // Imports des images de projets
-import borealeIcon from '@/assets/img/winter-7593872.jpg'
-import defAPIIcon from '@/assets/img/def-api.jpg'
-import pokeAPIIcon from '@/assets/img/pokemon-api.png'
-import emmaBOTIcon from '@/assets/img/emma-bot.png'
+import borealeIcon from '@/assets/img/winter-7593872.webp'
+import defAPIIcon from '@/assets/img/def-api.webp'
+import pokeAPIIcon from '@/assets/img/pokemon-api.webp'
+import emmaBOTIcon from '@/assets/img/emma-bot.webp'
 
 // Imports statiques des icônes SVG
 import FigmaIcon from '@/assets/icons/svg/figma.svg?react'
@@ -21,6 +21,16 @@ import SequelizeIcon from '@/assets/icons/svg/sequelize.svg?react'
 import IllustratorIcon from '@/assets/icons/svg/illustrator.svg?react'
 import GsapIcon from '@/assets/icons/svg/gsap.svg?react'
 import ExpressIcon from '@/assets/icons/svg/express.svg?react'
+
+const GITHUB_BASE_URL = 'https://github.com/yuri-jahad/'
+const SERVER_BASE_URL = 'https://mwamed.com/'
+
+const gitUrlConstructor = (projectName: string): string => {
+  return `${GITHUB_BASE_URL}${projectName}`
+}
+const linkUrlConstructor = (projectName: string): string => {
+  return `${SERVER_BASE_URL}${projectName}`
+}
 
 export const technos = [
   'JavaScript',
@@ -53,22 +63,38 @@ export const projects = [
       'TypeScript',
       'Adobe XD'
     ],
-    url: borealeIcon
+    url: {
+      icon: borealeIcon,
+      github: gitUrlConstructor('Syllabe-Boreale'),
+      server: linkUrlConstructor('syllabe-boreale/')
+    }
   },
   {
     name: 'Définition API',
     technos: ['Bun', 'Elysia', 'Kysely', 'PostgreSQL', 'TypeScript'],
-    url: defAPIIcon
+    url: {
+      icon: defAPIIcon,
+      github: gitUrlConstructor('def-api-frontend'),
+      server: linkUrlConstructor('def')
+    }
   },
   {
     name: 'Api rest Pokémon',
     technos: ['Node.JS', 'Fastify', 'Sequelize', 'TypeScript'],
-    url: pokeAPIIcon
+    url: {
+      icon: pokeAPIIcon,
+      github: gitUrlConstructor('api-pokemons'),
+      server: null
+    }
   },
   {
     name: 'Emma Bot (discord)',
-    url: emmaBOTIcon,
-    technos: ['Node.JS', 'Fastify', 'DiscordJS', 'TypeScript']
+    technos: ['Node.JS', 'Fastify', 'DiscordJS', 'TypeScript'],
+    url: {
+      icon: emmaBOTIcon,
+      github: gitUrlConstructor('Emma'),
+      server: null
+    }
   }
 ]
 

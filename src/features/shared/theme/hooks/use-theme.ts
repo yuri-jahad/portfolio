@@ -16,15 +16,11 @@ export const useTheme = () => {
   const { theme, setTheme } = useStore()
 
   useEffect(() => {
-    if (theme === null) {
-      const initialTheme = getInitialTheme()
-      setTheme(initialTheme)
-    }
-  }, [theme, setTheme])
-
-  useEffect(() => {
     if (theme) {
       document.documentElement.setAttribute('data-theme', theme)
+    } else if (theme === null) {
+      const initialTheme = getInitialTheme()
+      setTheme(initialTheme)
     }
   }, [theme])
 

@@ -28,6 +28,7 @@ import { useNavDetection } from '@/features/shared/nav/hooks/use-nav-detection'
 import useStore from '@/core/store'
 import { useThemeAttributes } from '@/features/shared/components/hooks/use-theme'
 import type { ColorModes, ModesContent, ThemeAtrributes } from '@/data/colors'
+import { useSmoothScroll } from '../../shared/components/hooks/use-smooth-scroll'
 
 export default function Home (): JSX.Element {
   useNavDetection('K', '#home')
@@ -35,9 +36,12 @@ export default function Home (): JSX.Element {
   const pandaRef = useRef<HTMLDivElement>(null)
   const { theme } = useStore()
   const colorsTheme = useThemeAttributes() as ModesContent
+  const { onSmoothScroll } = useSmoothScroll(gsap)
 
   useGSAP(() => {
-    // 🎯 PROBLÈME 2: Vérification de l'existence des éléments
+    const projectsContainer = document.querySelector(
+      '#projects'
+    ) as HTMLElement | null
     const calltoAction = containerRef.current?.querySelector(
       '.button-container-2 button'
     ) as HTMLButtonElement | null
@@ -62,6 +66,9 @@ export default function Home (): JSX.Element {
       return
     }
 
+    const handleCallToActionClick = e => {
+      onSmoothScroll(e, '#projects')
+    }
     const tl = gsap.timeline({})
 
     tl.set(animatedBtn, { opacity: 1 }, 0.5)
@@ -95,7 +102,7 @@ export default function Home (): JSX.Element {
       if (
         animation.animationName === 'ani2Light' ||
         animation.animationName === 'ani2Dark' ||
-        animation.animationName === 'ani2' //
+        animation.animationName === 'ani2' 
       ) {
         calltoAction.classList.remove('reverse-ani')
 
@@ -106,6 +113,7 @@ export default function Home (): JSX.Element {
     }
 
     if (calltoAction) {
+      calltoAction.addEventListener('click', handleCallToActionClick)
       calltoAction.addEventListener('mouseenter', handleMouseEnter)
       calltoAction.addEventListener('mouseleave', handleMouseLeave)
       calltoAction.addEventListener('animationend', handleAnimationEnd)
@@ -131,10 +139,6 @@ export default function Home (): JSX.Element {
       tl.kill()
     }
   }, [theme])
-
-  const handleScrollToProjects = (): void => {
-    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })
-  }
 
   return (
     <section
@@ -171,12 +175,11 @@ export default function Home (): JSX.Element {
               for everyone.
             </p>
             <div className={CallToActionParentCSS}>
-            <AnimatedButton
-              PandaStyleCSS={`${CallToActionCSS} btn-animated button-container-2`}
-              mask='View Projects'
-              onClick={handleScrollToProjects}
-              content='Explore Work'
-            />
+              <AnimatedButton
+                PandaStyleCSS={`${CallToActionCSS} btn-animated button-container-2`}
+                mask='View Projects'
+                content='Explore Work'
+              />
             </div>
           </div>
         </div>

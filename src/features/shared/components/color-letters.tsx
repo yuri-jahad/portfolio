@@ -22,20 +22,20 @@ export function ColorLetters ({
 }: ColorLettersProps) {
   const letters = text.split('')
 
-  console.log({colors, toto:'toto'})
   return (
     <span className={`${containerStyles} ${className}`}>
-      {colors && letters.map((letter, index) => (
-        <span
-          key={index}
-          className={letterStyles}
-          style={{
-            color: colors[index % colors.length]
-          }}
-        >
-          {letter}
-        </span>
-      ))}
+      {colors &&
+        letters.map((letter, index) => (
+          <span
+            key={index}
+            className={letterStyles}
+            style={{
+              color: colors[index % colors.length]
+            }}
+          >
+            {letter}
+          </span>
+        ))}
     </span>
   )
 }
