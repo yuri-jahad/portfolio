@@ -3,6 +3,7 @@ FROM oven/bun:1 AS build
 
 WORKDIR /app
 
+COPY . .
 # Copier les fichiers de dépendances
 COPY package.json bun.lock* ./
 
@@ -10,7 +11,6 @@ COPY package.json bun.lock* ./
 RUN bun install --frozen-lockfile
 
 # Copier le code source
-COPY . .
 
 # Construire l'application
 RUN bun run build
