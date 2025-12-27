@@ -92,7 +92,6 @@ export const NavLinkCSS = css({
   }
 })
 
-// Bouton burger - visible uniquement sur mobile
 export const BurgerButtonCSS = css({
   display: 'none',
   flexDirection: 'column',
@@ -110,7 +109,6 @@ export const BurgerButtonCSS = css({
   }
 })
 
-// Lignes du burger avec animation vers croix (X)
 export const BurgerLineCSS = css({
   width: '100%',
   height: '2px',
@@ -218,7 +216,6 @@ export const MobileNavCSS = css({
   }
 })
 
-// Overlay pour fermer le menu
 export const OverlayCSS = css({
   position: 'fixed',
   top: 0,
@@ -241,8 +238,7 @@ export const OverlayCSS = css({
   }
 })
 
-// Style pour le theme toggle qui reste visible
 export const ThemeToggleWrapperCSS = css({
   zIndex: '101',
-  position: 'relative'
+  position: 'relative',
 })

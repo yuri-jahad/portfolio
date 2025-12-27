@@ -82,7 +82,7 @@ export default defineConfig({
         sans: { value: ['Geist', 'system-ui', 'sans-serif'] },
         athena: { value: ['Athena'] },
         geistMedium: { value: ['GeistMedium'] },
-        geistLight: { value: ['GeistLight'] },
+        geistLight: { value: ['GeistLight'] }
       },
       fontWeights: {
         medium: { value: '500' }

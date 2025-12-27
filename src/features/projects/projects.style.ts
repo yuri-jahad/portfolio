@@ -2,33 +2,31 @@ import { css } from '~styled-system/css'
 
 export const ContainerBtnsCSS = css({
   display: 'flex',
-  gap: '20px 10px',
-  width: '50vw',
+  gap: '12px 16px', 
+  width: '100%',    
+  maxWidth: '900px', 
   margin: '0 auto',
   marginTop: '30px',
   justifyContent: 'center',
   flexWrap: 'wrap',
-  '@media(max-width:1440px)': {
-    gap: '18px 10px'
-  },
+  
   '@media(max-width:1024px)': {
-    width: '80vw',
-    gap: '16px 8px',
+    maxWidth: '100%',
+    padding: '0 20px',
+    gap: '10px 12px',
     marginBottom: '40px'
   },
+
   '@media(max-width:768px)': {
-    width: '100%',
-    gap: '14px 8px',
-    paddingTop: '30px 0 30px 0'
+    paddingTop: '20px',
+    gap: '8px 10px'
   },
+
   '@media(max-width:480px)': {
-    display: 'grid',
-    gridTemplateColumns: '1fr auto',
-    gap: '12px',
-    padding: '20px 0 20px 0'
+    gap: '8px',
+    padding: '10px 0'
   }
 })
-
 export const ContainerProjectCSS = css({
   display: 'flex',
   flexDirection: 'column',
@@ -236,7 +234,6 @@ export const NoProjectsMessageCSS = css({
   }
 })
 
-// Texte de suggestion
 export const SuggestionTextCSS = css({
   textAlign: 'center',
   fontSize: '18px',

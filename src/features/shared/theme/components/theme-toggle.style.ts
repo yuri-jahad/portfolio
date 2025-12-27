@@ -7,5 +7,6 @@ export const buttonCSS = css({
   width:'fit-content',
   display:'flex',
   alignItems:'center',
-  justifyContent:'center'
+  justifyContent:'center',
+  cursor:'pointer'
 })

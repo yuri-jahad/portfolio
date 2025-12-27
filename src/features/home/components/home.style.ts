@@ -2,7 +2,7 @@ import { css } from '~styled-system/css'
 
 export const HomeCSS = css({
   flexDirection: 'column',
-  alignItems: 'center',
+  alignItems: 'center'
 })
 
 export const H1CSS = css({
@@ -84,36 +84,94 @@ export const ContainerPCSS = css({
   gap: '30px'
 })
 
-export const CallToActionCSS = css({
-  height: '50px',
-  width: '220px',
-  color: 'text.primary',
-  fontSize: '{fontSizes.md}',
-  '@media(max-width: 1440px)': {
-    fontSize: '14px',
-    height: '45px',
-    width: '200px'
+
+
+
+export const LinkSocialCSS = css({
+  cursor: 'pointer',
+  position: 'relative',
+  display: 'inline-block',
+  opacity: 0.8,
+  transition: 'opacity 0.4s ease',
+  _after: {
+    content: '""',
+    position: 'absolute',
+    bottom: '-2px',
+    left: 0,
+    width: '100%',
+    height: '1px',
+    bg: 'currentColor',
+    transform: 'scaleX(0)',
+    transformOrigin: 'left',
+    transition: 'transform 0.5s cubic-bezier(0.19, 1, 0.22, 1)',
   },
-  '@media(max-width: 1050px)': {
-    fontSize: '14px',
-    height: '40px',
-    width: '150px'
-  }
+  _hover: {
+    opacity: 1,
+    _after: {
+      transform: 'scaleX(1)',
+    },
+  },
 })
 
 export const CallToActionParentCSS = css({
-  bottom: '-15vh',
   position: 'absolute',
+  bottom: '-15vh',
   left: '25%',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '220px',
+  height: '50px',
+  
+  border: '1px solid',
+  borderColor: 'text.primary',
+  borderRadius: '30px', 
+
+  bg: 'transparent',
+  color: 'text.primary',
+  fontFamily: 'athena',
+  fontSize: '{fontSizes.md}',
+  letterSpacing: '0.05em',
+  cursor: 'pointer',
+  
+  isolation: 'isolate', 
+  overflow: 'hidden',
+  transition: 'all 0.5s cubic-bezier(0.19, 1, 0.22, 1)', 
+
+  _before: {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    bg: 'text.primary',
+    transform: 'translateY(100%)', 
+    zIndex: -1,
+    transition: 'transform 0.6s cubic-bezier(0.19, 1, 0.22, 1)',
+  },
+
+  _hover: {
+    color: 'bg.classicReverse',
+    _before: {
+      transform: 'translateY(0)',
+    },
+  },
+
   '@media(max-width: 1440px)': {
-    bottom: '-12vh'
+    bottom: '-12vh',
+    fontSize: '14px',
+    height: '45px',
+    width: '200px',
   },
   '@media(max-width: 1050px)': {
-    bottom: '-10vh'
+    bottom: '-10vh',
+    height: '40px',
+    width: '150px',
   },
   '@media(max-width: 750px)': {
-    bottom: '-10vh'
-  }
+    bottom: '-10vh',
+  },
 })
 
 export const ScrollDownCSS = css({

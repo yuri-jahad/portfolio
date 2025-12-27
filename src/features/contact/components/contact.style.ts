@@ -43,7 +43,6 @@ export const MailCSS = css({
   position: 'relative',
   overflow: 'hidden',
 
-  // Effet active
   '&:active': {
     transform: 'translateY(0) scale(0.98)',
     transition: 'all 0.1s ease'
@@ -79,6 +78,7 @@ export const MailCSS = css({
 export const DomainCSS = css({
   color: 'bg.gardienSingleColor'
 })
+
 export const GridCSS = css({
   paddingBottom: '10px',
   color: '{colors.bg.primary}',
@@ -134,7 +134,8 @@ export const GridCSS = css({
 
 export const ParentArrowUPCSS = css({
   position: 'relative',
-  width: '100%'
+  width: '100%',
+  cursor:'pointer'
 })
 
 export const ArrowUPCSS = css({

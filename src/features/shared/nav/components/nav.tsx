@@ -19,8 +19,8 @@ import useStore from '@/core/store'
 import { useSmoothScroll } from '../../components/hooks/use-smooth-scroll'
 
 const menuItems = [
-  { href: '#projects', label: 'PROJECTS' },
   { href: '#skills', label: 'SKILLS' },
+  { href: '#projects', label: 'PROJECTS' },
   { href: '#contact', label: 'CONTACT' },
   // { href: '#resume', label: 'RÉSUMÉ' }
 ]
