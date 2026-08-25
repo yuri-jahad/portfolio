@@ -1,7 +1,6 @@
-import { useRef } from 'react'
+import { type ReactElement, useRef } from 'react'
 
-import BirdDarkIcon from '@/assets/icons/svg/bird-dark.svg?react'
-import BirdLightIcon from '@/assets/icons/svg/bird-light.svg?react'
+import { AnimatedBird } from './animated-bird'
 
 import {
   HomeCSS,
@@ -24,15 +23,13 @@ import { ColorLetters } from '@/features/shared/components/color-letters'
 import { Clock } from '@/features/shared/components/clock'
 import { gsap, useGSAP } from '@/core/gsap.config'
 import { useNavDetection } from '@/features/shared/nav/hooks/use-nav-detection'
-import useStore from '@/core/store'
 import { useThemeAttributes } from '@/features/shared/components/hooks/use-theme'
 import type { ModesContent } from '@/data/colors'
 import { useSmoothScroll } from '../../shared/components/hooks/use-smooth-scroll'
 
-export default function Home(): JSX.Element {
+export default function Home(): ReactElement {
   useNavDetection('K', '#home')
   const containerRef = useRef<HTMLElement>(null)
-  const { theme } = useStore()
   const colorsTheme = useThemeAttributes() as ModesContent
   const { onSmoothScroll } = useSmoothScroll(gsap)
 
@@ -41,42 +38,37 @@ export default function Home(): JSX.Element {
     const panelBottom = containerRef.current?.querySelector('.panel-bottom')
     const scrollIndicator = containerRef.current?.querySelector('.scroll-indicator')
 
-    const tl = gsap.timeline()
+    if (!mainCentral || !panelBottom) return
 
-    // Animation ralentie à 1.4s avec un ease très doux pour un effet "premium"
-    tl.fromTo(mainCentral, 
-      { opacity: 0, y: 40 }, 
-      { 
-        opacity: 1, 
-        y: 0, 
-        duration: 1.4, 
-        ease: 'power4.out', 
-        delay: 0.3 
-      }
-    ).fromTo(panelBottom,
-      { opacity: 0, y: 20 },
-      { 
-        opacity: 1, 
-        y: 0, 
-        duration: 1.2, 
-        ease: 'power3.out' 
-      },
-      "-=1" // Transition tuilée pour plus de fluidité
-    )
+    gsap.set([mainCentral, panelBottom], {
+      opacity: 0,
+      y: 18,
+      force3D: true
+    })
+
+    const tl = gsap.timeline({ defaults: { ease: 'expo.out' } })
+
+    tl.to(mainCentral, {
+      opacity: 1,
+      y: 0,
+      duration: 0.95,
+      clearProps: 'transform'
+    }).to(panelBottom, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      clearProps: 'transform'
+    }, '-=0.55')
 
     if (scrollIndicator) {
-      gsap.to(scrollIndicator, {
-        opacity: 0.4,
-        y: 8,
-        duration: 2.5,
-        yoyo: true,
-        repeat: -1,
-        ease: 'sine.inOut'
-      })
+      gsap.fromTo(scrollIndicator,
+        { opacity: 0, y: 6 },
+        { opacity: 1, y: 0, duration: 0.75, ease: 'sine.out', delay: 0.65 }
+      )
     }
 
     return () => { tl.kill() }
-  }, [theme])
+  }, [])
 
   return (
     <section 
@@ -116,11 +108,9 @@ export default function Home(): JSX.Element {
         </div>
 
         <div className={ContainerPandaCSS}>
-          {theme === 'dark' ? (
-            <BirdLightIcon width={400} height={380} />
-          ) : (
-            <BirdDarkIcon width={380} height={380} />
-          )}
+          <div style={{ height: '380px', overflow: 'visible', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <AnimatedBird />
+          </div>
         </div>
       </div>
 

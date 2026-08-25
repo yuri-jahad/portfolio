@@ -6,7 +6,8 @@
     "dev": "panda codegen && vite --port 3000",
     "start": "vite --port 3000",
     "prepare": "panda codegen",
-    "build": "vite build && tsc",
+    "build": "panda codegen && vite build",
+    "typecheck": "tsc --noEmit",
     "serve": "vite preview",
     "test": "vitest run"
   },

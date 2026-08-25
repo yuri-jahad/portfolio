@@ -1,25 +1,46 @@
-import { useRef, useEffect, useState } from 'react'
+import { type ReactNode, useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
+
+type MagneticProjectProps = {
+  imageUrl: string
+  gridSize?: number
+  radius?: number
+  className?: string
+  children?: ReactNode
+  found?: boolean
+}
+
+type CoverSourceRect = {
+  x: number
+  y: number
+  width: number
+  height: number
+}
+
+class GridElement {
+  x = 0
+  y = 0
+  left = 0
+  top = 0
+}
 
 const MagneticProject = ({
   imageUrl,
-  height,
   gridSize = 9,
   radius = 60,
   className = '',
   children
-}) => {
-  const canvasRef = useRef()
-  const containerRef = useRef()
+}: MagneticProjectProps) => {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null)
+  const containerRef = useRef<HTMLDivElement | null>(null)
   const [isLoaded, setIsLoaded] = useState(false)
 
-  // Refs pour stocker les données
-  const signsRef = useRef([])
+  const signsRef = useRef<GridElement[][]>([])
   const mouseRef = useRef({ x: 0, y: 0 })
   const mouseOverRef = useRef(false)
   const mouseMovedRef = useRef(false)
-  const imageRef = useRef(null)
-  const animationIdRef = useRef(null)
+  const imageRef = useRef<HTMLImageElement | null>(null)
+  const animationIdRef = useRef<number | null>(null)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -27,137 +48,137 @@ const MagneticProject = ({
     if (!canvas || !container) return
 
     const context = canvas.getContext('2d')
+    if (!context) return
 
     const updateCanvasSize = () => {
       const rect = container.getBoundingClientRect()
       canvas.width = rect.width
-      canvas.height = rect.height || rect.width 
+      canvas.height = rect.height || rect.width
     }
 
-    updateCanvasSize()
-  
-
-    class GridElement {
-      constructor () {
-        this.x = 0
-        this.y = 0
-        this.left = 0
-        this.top = 0
-        this.scale = 1.0 // Commence à scale 1 pour couvrir parfaitement
-      }
-    }
-
-    // Charger l'image
-    const img = new Image()
-    img.crossOrigin = 'anonymous'
-
-    img.onload = () => {
-      imageRef.current = img
-
-      const signs = []
+    const placeGrid = () => {
+      const signs: GridElement[][] = []
 
       for (let i = 0; i < gridSize; i++) {
         signs[i] = []
         for (let j = 0; j < gridSize; j++) {
           const sign = new GridElement()
-          sign.left =
-            (canvas.width / gridSize) * i + canvas.width / gridSize / 2
-          sign.top =
-            (canvas.height / gridSize) * j + canvas.height / gridSize / 2
+          sign.left = (canvas.width / gridSize) * i + canvas.width / gridSize / 2
+          sign.top = (canvas.height / gridSize) * j + canvas.height / gridSize / 2
           signs[i][j] = sign
         }
       }
 
       signsRef.current = signs
-      setIsLoaded(true)
-
-      // Démarrer l'animation
-      startAnimation()
     }
 
-    img.onerror = () => {
-      console.error("Erreur lors du chargement de l'image:", imageUrl)
-    }
+    const getCoverSourceRect = (image: HTMLImageElement): CoverSourceRect => {
+      const canvasRatio = canvas.width / canvas.height
+      const imageRatio = image.width / image.height
 
-    img.src = imageUrl
+      if (imageRatio > canvasRatio) {
+        const sourceWidth = image.height * canvasRatio
 
-    const startAnimation = () => {
-      const draw = () => {
-        if (mouseOverRef.current && mouseMovedRef.current) {
-          calculateElementPositions()
-          mouseMovedRef.current = false
+        return {
+          x: (image.width - sourceWidth) / 2,
+          y: 0,
+          width: sourceWidth,
+          height: image.height
         }
-
-        context.clearRect(0, 0, canvas.width, canvas.height)
-
-        if (imageRef.current && signsRef.current.length > 0) {
-          for (let i = 0; i < gridSize; i++) {
-            for (let j = 0; j < gridSize; j++) {
-              const sign = signsRef.current[i][j]
-
-              // Calcul des dimensions et positions exactes
-              const segmentWidth = canvas.width / gridSize
-              const segmentHeight = canvas.height / gridSize
-              const baseX = segmentWidth * i
-              const baseY = segmentHeight * j
-
-              // Position finale avec déplacement magnétique
-              const finalX = baseX + sign.x
-              const finalY = baseY + sign.y
-
-              // Taille fixe pour éviter les gaps
-              const scaledWidth = segmentWidth
-              const scaledHeight = segmentHeight
-
-              context.drawImage(
-                imageRef.current,
-                i * (imageRef.current.width / gridSize), 
-                j * (imageRef.current.height / gridSize), 
-                imageRef.current.width / gridSize, 
-                imageRef.current.height / gridSize, 
-                finalX, 
-                finalY, 
-                scaledWidth, 
-                scaledHeight 
-              )
-            }
-          }
-        }
-
-        animationIdRef.current = requestAnimationFrame(draw)
       }
 
-      draw()
+      const sourceHeight = image.width / canvasRatio
+
+      return {
+        x: 0,
+        y: (image.height - sourceHeight) / 2,
+        width: image.width,
+        height: sourceHeight
+      }
     }
 
     const calculateElementPositions = () => {
       for (let i = 0; i < gridSize; i++) {
         for (let j = 0; j < gridSize; j++) {
-          const sign = signsRef.current[i][j]
-          let currentRadius = radius
+          const sign = signsRef.current[i]?.[j]
+          if (!sign) continue
+
           const dx = mouseRef.current.x - sign.left
           const dy = mouseRef.current.y - sign.top
           const dist = Math.sqrt(dx * dx + dy * dy) || 1
           const angle = Math.atan2(dy, dx)
-
-          if (dist < radius) {
-            currentRadius = dist
-          }
+          const influence = Math.pow(Math.max(0, 1 - dist / radius), 1.35)
+          const displacement = 16 * influence
 
           gsap.to(sign, {
-            duration: 0.3,
-            x: Math.cos(angle) * currentRadius * 0.3,
-            y: Math.sin(angle) * currentRadius * 0.3
+            duration: 0.22,
+            x: Math.cos(angle) * displacement,
+            y: Math.sin(angle) * displacement,
+            overwrite: 'auto'
           })
         }
       }
     }
 
-    // Event listeners
-    const handleMouseMove = e => {
+    const draw = () => {
+      if (mouseOverRef.current && mouseMovedRef.current) {
+        calculateElementPositions()
+        mouseMovedRef.current = false
+      }
+
+      context.clearRect(0, 0, canvas.width, canvas.height)
+
+      const image = imageRef.current
+      if (image && signsRef.current.length > 0) {
+        const sourceRect = getCoverSourceRect(image)
+        const segmentWidth = canvas.width / gridSize
+        const segmentHeight = canvas.height / gridSize
+        const sourceSegmentWidth = sourceRect.width / gridSize
+        const sourceSegmentHeight = sourceRect.height / gridSize
+        const overlap = Math.max(1, Math.min(segmentWidth, segmentHeight) * 0.035)
+
+        context.drawImage(
+          image,
+          sourceRect.x,
+          sourceRect.y,
+          sourceRect.width,
+          sourceRect.height,
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        )
+
+        for (let i = 0; i < gridSize; i++) {
+          for (let j = 0; j < gridSize; j++) {
+            const sign = signsRef.current[i]?.[j]
+            if (!sign) continue
+
+            const baseX = segmentWidth * i
+            const baseY = segmentHeight * j
+
+            context.drawImage(
+              image,
+              sourceRect.x + i * sourceSegmentWidth,
+              sourceRect.y + j * sourceSegmentHeight,
+              sourceSegmentWidth,
+              sourceSegmentHeight,
+              baseX + sign.x - overlap / 2,
+              baseY + sign.y - overlap / 2,
+              segmentWidth + overlap,
+              segmentHeight + overlap
+            )
+          }
+        }
+      }
+
+      animationIdRef.current = requestAnimationFrame(draw)
+    }
+
+    const handleMouseMove = (event: MouseEvent) => {
       const rect = canvas.getBoundingClientRect()
-      mouseRef.current.x = e.clientX - rect.left
-      mouseRef.current.y = e.clientY - rect.top
+      mouseRef.current.x = event.clientX - rect.left
+      mouseRef.current.y = event.clientY - rect.top
       mouseMovedRef.current = true
     }
 
@@ -168,39 +189,38 @@ const MagneticProject = ({
     const handleMouseLeave = () => {
       mouseOverRef.current = false
 
-      // Reset tous les éléments
-      for (let i = 0; i < gridSize; i++) {
-        for (let j = 0; j < gridSize; j++) {
-          const sign = signsRef.current[i][j]
-          gsap.to(sign, { duration: 0.3, x: 0, y: 0, scale: 0.5 })
-        }
-      }
+      signsRef.current.forEach(row => {
+        row.forEach(sign => {
+          gsap.to(sign, { duration: 0.24, x: 0, y: 0, overwrite: 'auto' })
+        })
+      })
     }
 
-    // Resize handler
     const handleResize = () => {
       updateCanvasSize()
-
-      // Recalculer la grille avec les nouvelles dimensions
-      if (signsRef.current.length > 0) {
-        for (let i = 0; i < gridSize; i++) {
-          for (let j = 0; j < gridSize; j++) {
-            const sign = signsRef.current[i][j]
-            sign.left =
-              (canvas.width / gridSize) * i + canvas.width / gridSize / 2
-            sign.top =
-              (canvas.height / gridSize) * j + canvas.height / gridSize / 2
-          }
-        }
-      }
+      placeGrid()
     }
+
+    updateCanvasSize()
+
+    const image = new Image()
+    image.crossOrigin = 'anonymous'
+    image.onload = () => {
+      imageRef.current = image
+      placeGrid()
+      setIsLoaded(true)
+      draw()
+    }
+    image.onerror = () => {
+      console.error("Erreur lors du chargement de l'image:", imageUrl)
+    }
+    image.src = imageUrl
 
     canvas.addEventListener('mousemove', handleMouseMove)
     canvas.addEventListener('mouseenter', handleMouseEnter)
     canvas.addEventListener('mouseleave', handleMouseLeave)
     window.addEventListener('resize', handleResize)
 
-    // Cleanup
     return () => {
       canvas.removeEventListener('mousemove', handleMouseMove)
       canvas.removeEventListener('mouseenter', handleMouseEnter)
@@ -211,7 +231,7 @@ const MagneticProject = ({
         cancelAnimationFrame(animationIdRef.current)
       }
 
-      gsap.killTweensOf(signsRef.current)
+      gsap.killTweensOf(signsRef.current.flat())
     }
   }, [imageUrl, gridSize, radius])
 
@@ -233,11 +253,10 @@ const MagneticProject = ({
           display: 'block',
           width: '100%',
           height: '100%',
-          objectFit: 'cover' // Respecte ton objectFit original
+          objectFit: 'cover'
         }}
       />
 
-      {/* Overlay content */}
       {children && (
         <div
           style={{
@@ -257,7 +276,6 @@ const MagneticProject = ({
         </div>
       )}
 
-      {/* Loading state */}
       {!isLoaded && (
         <div
           style={{

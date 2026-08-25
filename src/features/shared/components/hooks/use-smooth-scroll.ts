@@ -8,7 +8,7 @@ export const useSmoothScroll = (gsap: any) => {
   }
 
   const onSmoothScroll = (
-    e: React.MouseEvent<HTMLAnchorElement>,
+    e: React.MouseEvent<Element>,
     target: string | HTMLElement // ✅ Accepter les deux types
   ): void => {
     e.preventDefault()

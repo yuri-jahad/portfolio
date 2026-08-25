@@ -1,6 +1,6 @@
 import { projects, technos } from './../data/techno'
 import { create } from 'zustand'
-import type { ProjectsArray, StackArray } from '../data/techno.type'
+import type { ProjectsArray } from '../data/techno.type'
 
 export type Theme = 'dark' | 'light' | null
 export type Technos = typeof technos[number]

@@ -16,7 +16,6 @@ import {
   ProjectsCSS,
   ProjectOriginCSS,
   ProjectNameCSS,
-  ImgProjectOriginCSS,
   BtnProjectNotFoundCSS,
   ThumbnailContainerCSS
 } from '@/features/projects/projects.style'
@@ -26,7 +25,7 @@ import useStore from '@/core/store'
 import { useGSAP } from '@gsap/react'
 import { gsap } from '@/core/gsap.config'
 import { useNavDetection } from '../shared/nav/hooks/use-nav-detection'
-import { useRef } from 'react'
+import { type ReactElement, useRef } from 'react'
 import { useThemeAttributes } from '../shared/components/hooks/use-theme'
 
 const ThumbnailItemCSS = css({
@@ -84,7 +83,7 @@ const SuggestionTextCSS = css({
   fontStyle: 'italic'
 })
 
-export default function Projects(): JSX.Element {
+export default function Projects(): ReactElement {
   useNavDetection('PROJECTS', '#projects')
   const projectsRef = useRef<HTMLElement | null>(null)
   const themeColors = useThemeAttributes()
@@ -104,10 +103,12 @@ export default function Projects(): JSX.Element {
 
   useGSAP(
     () => {
-      const techStackPaths = projectsRef.current?.querySelectorAll('svg path') as NodeListOf<SVGPathElement>
+      const techStackPaths = projectsRef.current?.querySelectorAll<SVGPathElement>('svg path')
       const hoverContainer = projectsRef.current?.querySelector('svg')
       const elementsToFade = projectsRef.current?.querySelectorAll('.projects-buttons, .filter-mode, .projects-content, .category-section')
-      let currentTween: gsap.core.Tween | null = null
+      let currentTl: gsap.core.Timeline | null = null
+
+      if (!techStackPaths || !hoverContainer || !elementsToFade) return
 
       gsap.set(elementsToFade, { opacity: 0, y: 15 })
 
@@ -152,27 +153,42 @@ export default function Projects(): JSX.Element {
       }, '-=0.5')
 
       const handleMouseEnter = () => {
-        if (currentTween) currentTween.kill()
-        currentTween = gsap.to(techStackPaths, {
-          fill: 'url(#chooseTechGradientHover)',
-          stroke: 'url(#chooseTechGradientHover)',
-          scale: 1.02,
-          transformOrigin: 'center',
-          duration: 0.3,
-          stagger: 0.01,
-          ease: 'power2.out'
-        })
+        if (currentTl) currentTl.kill()
+        currentTl = gsap.timeline()
+        currentTl
+          .to(techStackPaths, {
+            fill: 'url(#chooseTechGradientHover)',
+            stroke: 'url(#chooseTechGradientHover)',
+            y: -5,
+            transformOrigin: 'center bottom',
+            duration: 0.45,
+            stagger: { each: 0.018, from: 'start' },
+            ease: 'power3.out'
+          })
+          .to(hoverContainer, {
+            filter: 'drop-shadow(0 2px 12px rgba(var(--cursor-accent-raw, 19,213,255),0.45))',
+            duration: 0.3,
+            ease: 'power2.out'
+          }, 0)
       }
 
       const handleMouseLeave = () => {
-        if (currentTween) currentTween.kill()
-        currentTween = gsap.to(techStackPaths, {
-          fill: baseColor,
-          stroke: baseColor,
-          scale: 1,
-          duration: 0.4,
-          ease: 'power2.out'
-        })
+        if (currentTl) currentTl.kill()
+        currentTl = gsap.timeline()
+        currentTl
+          .to(techStackPaths, {
+            fill: baseColor,
+            stroke: baseColor,
+            y: 0,
+            duration: 0.4,
+            stagger: { each: 0.012, from: 'end' },
+            ease: 'power2.inOut'
+          })
+          .to(hoverContainer, {
+            filter: 'none',
+            duration: 0.25,
+            ease: 'power2.out'
+          }, 0)
       }
 
       hoverContainer?.addEventListener('mouseenter', handleMouseEnter)
@@ -190,7 +206,7 @@ export default function Projects(): JSX.Element {
     <section id='projects' ref={projectsRef} className={`${SpacingCSS.sectionSeparator} ${!projectsFilteredIsEmpty ? SectionCSS : ProjectsCSS}`}>
       <div className={ZoneCategoryCSS}>
         <div>
-          <svg xmlns='http://www.w3.org/2000/svg' height='25' viewBox='0 0 503.045 33.5'>
+          <svg xmlns='http://www.w3.org/2000/svg' height='25' viewBox='0 0 503.045 33.5' style={{ overflow: 'visible' }}>
             <defs>
               <linearGradient id='chooseTechGradientHover' x1='0%' y1='0%' x2='0%' y2='100%'>
                 <stop offset='0%' stopColor={themeColors.colors?.[0] || '#fe5251'} />
@@ -243,12 +259,12 @@ export default function Projects(): JSX.Element {
         {!projectsFilteredIsEmpty ? (
           projectsFiltered.map((project, i) => (
             <div key={i} className={ContainerProjectCSS}>
-              <MagneticProject found={true} imageUrl={project.url.icon} gridSize={8} className={ImgProjectCSS} />
+              <MagneticProject found={true} imageUrl={project.url.icon} gridSize={16} radius={150} className={ImgProjectCSS} />
               <div className={ProjectLegendCSS}>
                 <div className={ProjectNameCSS}>{project.name}</div>
                 <div className={ProjectOriginCSS}>
-                  {project.url.server && <a target='_blank' href={project.url.server}>Live View</a>}
-                  <a target='_blank' href={project.url.github}>Github</a>
+                  {project.url.server && <a target='_blank' rel='noopener noreferrer' href={project.url.server}>Live View</a>}
+                  <a target='_blank' rel='noopener noreferrer' href={project.url.github}>Github</a>
                 </div>
               </div>
               <div className={ContainerProjectBtnsCSS}>
@@ -269,7 +285,7 @@ export default function Projects(): JSX.Element {
             <div className={ThumbnailContainerCSS}>
               {projects.map((p, i) => (
                 <div key={i} className={ThumbnailItemCSS} onClick={() => filterByProjectName(p.name)}>
-                  <MagneticProject found={false} imageUrl={p.url.icon} gridSize={8} className={ThumbnailImageCSS} />
+                  <MagneticProject found={false} imageUrl={p.url.icon} gridSize={12} radius={100} className={ThumbnailImageCSS} />
                   <span className={ThumbnailNameCSS}>{p.name}</span>
                 </div>
               ))}

@@ -11,7 +11,7 @@ export interface StackType {
 export type StackArray = StackType[]
 
 export interface ProjectURL {
-  icon: ComponentType
+  icon: string
   github: string
   server: string | null
 }

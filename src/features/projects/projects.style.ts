@@ -31,21 +31,7 @@ export const ContainerProjectCSS = css({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  gap: '20px',
-
-  '& .magnetic-project-container': {
-    height: '500px !important',
-
-    '@media(max-width:1024px)': {
-      height: '400px !important'
-    },
-    '@media(max-width:768px)': {
-      height: '300px !important'
-    },
-    '@media(max-width:480px)': {
-      height: '250px !important'
-    }
-  }
+  gap: '20px'
 })
 
 export const ContainerProjectsCSS = css({
@@ -68,17 +54,17 @@ export const ContainerProjectBtnsCSS = css({
 
 export const ImgProjectCSS = css({
   objectFit: 'cover',
-  height: '500px !important',
+  height: '430px !important',
   width: '100%',
 
   '@media(max-width:1250px)': {
-    height: '350px !important'
+    height: '330px !important'
   },
   '@media(max-width:1050px)': {
-    height: '200px !important'
+    height: '220px !important'
   },
   '@media(max-width:765px)': {
-    height: '400px !important',
+    height: '320px !important',
     objectFit: 'content'
   }
 })

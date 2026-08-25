@@ -46,6 +46,7 @@ export const PCSS = css({
 export const BioAndIonCSS = css({
   margin: '0 auto',
   display: 'flex',
+  alignSelf: 'center',
   height: 'fit-content',
   gap: '180px',
   marginBottom: '14vh',
@@ -53,7 +54,11 @@ export const BioAndIonCSS = css({
     gap: '100px'
   },
   '@media(max-width: 1050px)': {
-    gap: '0px'
+    gap: '0px',
+    flexDirection: 'column',
+  },
+  '@media(max-width: 750px)': {
+    marginBottom: '8vh',
   }
 })
 
@@ -65,7 +70,8 @@ export const SocialCSS = css({
     gap: '50'
   },
   '@media(max-width: 750px)': {
-    gap: '20'
+    gap: '16',
+    fontSize: '11px',
   }
 })
 
@@ -124,8 +130,8 @@ export const CallToActionParentCSS = css({
   height: '50px',
   
   border: '1px solid',
-  borderColor: 'text.primary',
-  borderRadius: '30px', 
+  borderColor: 'text.primary/30',
+  borderRadius: '30px',
 
   bg: 'transparent',
   color: 'text.primary',
@@ -136,25 +142,27 @@ export const CallToActionParentCSS = css({
   
   isolation: 'isolate', 
   overflow: 'hidden',
-  transition: 'all 0.5s cubic-bezier(0.19, 1, 0.22, 1)', 
+  transition: 'color 0.7s ease, border-color 0.7s ease',
 
   _before: {
     content: '""',
     position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
+    top: '-10%',
+    left: '-20%',
+    width: '10%',
+    height: '120%',
     bg: 'text.primary',
-    transform: 'translateY(100%)', 
+    transform: 'skewX(-18deg)',
     zIndex: -1,
-    transition: 'transform 0.6s cubic-bezier(0.19, 1, 0.22, 1)',
+    transition: 'width 0.42s ease',
   },
 
   _hover: {
     color: 'bg.classicReverse',
+    borderColor: 'text.primary/50',
     _before: {
-      transform: 'translateY(0)',
+      width: '145%',
+      transition: 'width 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
     },
   },
 
@@ -165,17 +173,31 @@ export const CallToActionParentCSS = css({
     width: '200px',
   },
   '@media(max-width: 1050px)': {
-    bottom: '-10vh',
-    height: '40px',
-    width: '150px',
+    position: 'relative',
+    bottom: 'auto',
+    left: 'auto',
+    height: '44px',
+    width: '180px',
+    alignSelf: 'flex-start',
   },
   '@media(max-width: 750px)': {
-    bottom: '-10vh',
+    width: '160px',
+    fontSize: '13px',
   },
 })
 
 export const ScrollDownCSS = css({
-  fontSize: '{fontSizes.md}'
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: '6px',
+  cursor: 'default',
+  flexShrink: 0,
+  fontSize: '9px',
+  fontFamily: 'geistMedium',
+  letterSpacing: '0.22em',
+  opacity: 0.42,
+  animation: 'sdPulse 3.5s ease-in-out infinite',
+  whiteSpace: 'nowrap',
 })
 
 export const ContainerPandaCSS = css({
@@ -186,10 +208,7 @@ export const ContainerPandaCSS = css({
     '& svg': {}
   },
   '@media(max-width: 1050px)': {
-    bg: 'red',
-    '& svg': {
-      display: 'none'
-    }
+    display: 'none'
   }
 })
 
